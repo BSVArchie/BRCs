@@ -1,0 +1,593 @@
+{
+  "version": 1,
+  "canonical": [
+    {
+      "name": "ordered keys",
+      "type": "fixture",
+      "body": {
+        "z": "18446744073709551615",
+        "a": 1
+      },
+      "canonical": "{\"a\":1,\"z\":\"18446744073709551615\"}",
+      "digest": "49e9ea27956ccc8200f2834f6124d2a8f94baa910dffd9223ecedfcdcd6c0d31"
+    },
+    {
+      "name": "Unicode UTF-16 order",
+      "type": "fixture",
+      "body": {
+        "": "private",
+        "😀": "astral",
+        "a": "line\nquote\""
+      },
+      "canonical": "{\"a\":\"line\\nquote\\\"\",\"😀\":\"astral\",\"\":\"private\"}",
+      "digest": "e85a18815a1566550c183f5082f69672c6916e0f5eeea0fc9528865e261af3c3"
+    },
+    {
+      "name": "query binding",
+      "type": "lookup-query",
+      "body": {
+        "service": "ls_catalogue",
+        "query": {
+          "limit": 2,
+          "tag": "public"
+        }
+      },
+      "canonical": "{\"query\":{\"limit\":2,\"tag\":\"public\"},\"service\":\"ls_catalogue\"}",
+      "digest": "c85c2d3ff3d0f102e660024a2c9481b8c90be7afba546d8281cd89a2f3cc4bed"
+    }
+  ],
+  "u64": [
+    {
+      "value": "0",
+      "valid": true
+    },
+    {
+      "value": "18446744073709551615",
+      "valid": true
+    },
+    {
+      "value": "9007199254740993",
+      "valid": true
+    },
+    {
+      "value": "18446744073709551616",
+      "valid": false
+    },
+    {
+      "value": "01",
+      "valid": false
+    },
+    {
+      "value": "-1",
+      "valid": false
+    },
+    {
+      "value": "1.0",
+      "valid": false
+    },
+    {
+      "value": "1e3",
+      "valid": false
+    },
+    {
+      "value": 1,
+      "valid": false
+    },
+    {
+      "value": "",
+      "valid": false
+    }
+  ],
+  "membership": {
+    "events": [
+      {
+        "source": "A",
+        "id": "1",
+        "kind": "output",
+        "outpoint": "x"
+      },
+      {
+        "source": "A",
+        "id": "1",
+        "kind": "output",
+        "outpoint": "x"
+      },
+      {
+        "source": "B",
+        "id": "1",
+        "kind": "output",
+        "outpoint": "x"
+      },
+      {
+        "source": "A",
+        "id": "2",
+        "kind": "withdraw",
+        "outpoint": "x"
+      }
+    ],
+    "receipts": 3,
+    "remainingSources": [
+      "B"
+    ],
+    "spent": false
+  },
+  "cursor": [
+    {
+      "name": "during scan mutation",
+      "watermark": "10",
+      "snapshot": [
+        "x"
+      ],
+      "log": [
+        {
+          "sequence": "11",
+          "id": "replace",
+          "remove": [
+            "x"
+          ],
+          "add": [
+            "y"
+          ]
+        }
+      ],
+      "expected": [
+        "y"
+      ],
+      "through": "11"
+    },
+    {
+      "name": "empty initial collection",
+      "watermark": "0",
+      "snapshot": [],
+      "log": [
+        {
+          "sequence": "1",
+          "id": "insert",
+          "remove": [],
+          "add": [
+            "a"
+          ]
+        }
+      ],
+      "expected": [
+        "a"
+      ],
+      "through": "1"
+    },
+    {
+      "name": "irrelevant sequence gap",
+      "watermark": "7",
+      "snapshot": [
+        "a"
+      ],
+      "log": [
+        {
+          "sequence": "10",
+          "id": "insert",
+          "remove": [],
+          "add": [
+            "b"
+          ]
+        }
+      ],
+      "expected": [
+        "a",
+        "b"
+      ],
+      "through": "10"
+    }
+  ],
+  "capability": [
+    {
+      "name": "selected supported",
+      "required": "live-v1",
+      "available": [
+        "finite-v1",
+        "live-v1"
+      ],
+      "valid": true
+    },
+    {
+      "name": "no finite downgrade",
+      "required": "live-v1",
+      "available": [
+        "finite-v1"
+      ],
+      "valid": false
+    },
+    {
+      "name": "unknown required",
+      "required": "future-v2",
+      "available": [
+        "live-v1"
+      ],
+      "valid": false
+    }
+  ],
+  "proposal": [
+    {
+      "head": null,
+      "incoming": {
+        "revision": "0",
+        "previous": null,
+        "id": "a"
+      },
+      "expected": "recorded"
+    },
+    {
+      "head": {
+        "revision": "0",
+        "id": "a"
+      },
+      "incoming": {
+        "revision": "0",
+        "previous": null,
+        "id": "a"
+      },
+      "expected": "replay"
+    },
+    {
+      "head": {
+        "revision": "0",
+        "id": "a"
+      },
+      "incoming": {
+        "revision": "1",
+        "previous": "a",
+        "id": "b"
+      },
+      "expected": "recorded"
+    },
+    {
+      "head": {
+        "revision": "1",
+        "id": "b"
+      },
+      "incoming": {
+        "revision": "1",
+        "previous": "a",
+        "id": "c"
+      },
+      "expected": "conflict"
+    },
+    {
+      "head": {
+        "revision": "0",
+        "id": "a"
+      },
+      "incoming": {
+        "revision": "2",
+        "previous": "a",
+        "id": "b"
+      },
+      "expected": "conflict"
+    },
+    {
+      "head": null,
+      "incoming": {
+        "revision": "0",
+        "previous": "a",
+        "id": "b"
+      },
+      "expected": "conflict"
+    }
+  ],
+  "purchase": [
+    {
+      "name": "first purchase",
+      "old": "1",
+      "price": "1000",
+      "next": "1001",
+      "sameScript": true,
+      "receipt": true,
+      "lineage": true,
+      "valid": true
+    },
+    {
+      "name": "second purchase",
+      "old": "1001",
+      "price": "1000",
+      "next": "2001",
+      "sameScript": true,
+      "receipt": true,
+      "lineage": true,
+      "valid": true
+    },
+    {
+      "name": "under increment",
+      "old": "1",
+      "price": "1000",
+      "next": "1000",
+      "sameScript": true,
+      "receipt": true,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "over increment",
+      "old": "1",
+      "price": "1000",
+      "next": "1002",
+      "sameScript": true,
+      "receipt": true,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "changed script",
+      "old": "1",
+      "price": "1000",
+      "next": "1001",
+      "sameScript": false,
+      "receipt": true,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "missing receipt",
+      "old": "1",
+      "price": "1000",
+      "next": "1001",
+      "sameScript": true,
+      "receipt": false,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "cloned lineage",
+      "old": "1",
+      "price": "1000",
+      "next": "1001",
+      "sameScript": true,
+      "receipt": true,
+      "lineage": false,
+      "valid": false
+    },
+    {
+      "name": "overflow money range",
+      "old": "2100000000000000",
+      "price": "1",
+      "next": "2100000000000001",
+      "sameScript": true,
+      "receipt": true,
+      "lineage": true,
+      "valid": false
+    }
+  ],
+  "administration": [
+    {
+      "name": "split",
+      "route": "split",
+      "inputs": [
+        "2001"
+      ],
+      "outputs": [
+        "1000",
+        "1001"
+      ],
+      "reserve": "1",
+      "payout": "0",
+      "authorized": true,
+      "unique": true,
+      "lineage": true,
+      "valid": true
+    },
+    {
+      "name": "merge",
+      "route": "merge",
+      "inputs": [
+        "2001",
+        "3001"
+      ],
+      "outputs": [
+        "5002"
+      ],
+      "reserve": "1",
+      "payout": "0",
+      "authorized": true,
+      "unique": true,
+      "lineage": true,
+      "valid": true
+    },
+    {
+      "name": "payout",
+      "route": "payout",
+      "inputs": [
+        "2001"
+      ],
+      "outputs": [
+        "501"
+      ],
+      "reserve": "1",
+      "payout": "1500",
+      "authorized": true,
+      "unique": true,
+      "lineage": true,
+      "valid": true
+    },
+    {
+      "name": "retire",
+      "route": "retire",
+      "inputs": [
+        "2001"
+      ],
+      "outputs": [],
+      "reserve": "1",
+      "payout": "2001",
+      "authorized": true,
+      "unique": true,
+      "lineage": true,
+      "valid": true
+    },
+    {
+      "name": "duplicate predecessor",
+      "route": "merge",
+      "inputs": [
+        "2001",
+        "2001"
+      ],
+      "outputs": [
+        "4002"
+      ],
+      "reserve": "1",
+      "payout": "0",
+      "authorized": true,
+      "unique": false,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "unsigned admin",
+      "route": "payout",
+      "inputs": [
+        "2001"
+      ],
+      "outputs": [
+        "501"
+      ],
+      "reserve": "1",
+      "payout": "1500",
+      "authorized": false,
+      "unique": true,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "fee extraction",
+      "route": "merge",
+      "inputs": [
+        "2001",
+        "3001"
+      ],
+      "outputs": [
+        "5001"
+      ],
+      "reserve": "1",
+      "payout": "0",
+      "authorized": true,
+      "unique": true,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "lost reserve",
+      "route": "split",
+      "inputs": [
+        "2"
+      ],
+      "outputs": [
+        "2",
+        "0"
+      ],
+      "reserve": "1",
+      "payout": "0",
+      "authorized": true,
+      "unique": true,
+      "lineage": true,
+      "valid": false
+    },
+    {
+      "name": "unrelated lineage",
+      "route": "merge",
+      "inputs": [
+        "2001",
+        "3001"
+      ],
+      "outputs": [
+        "5002"
+      ],
+      "reserve": "1",
+      "payout": "0",
+      "authorized": true,
+      "unique": true,
+      "lineage": false,
+      "valid": false
+    }
+  ],
+  "receipt": {
+    "magic": "ROSL",
+    "purchaseBytes": 167,
+    "adminBytes": 86,
+    "listingId": "1111111111111111111111111111111111111111111111111111111111111111",
+    "acquisitionId": "2222222222222222222222222222222222222222222222222222222222222222",
+    "requestDigest": "3333333333333333333333333333333333333333333333333333333333333333",
+    "recipient": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+    "termsDigest": "4444444444444444444444444444444444444444444444444444444444444444"
+  },
+  "acquisition": {
+    "buyer": "buyer-a",
+    "request": "request-a",
+    "payment": "payment-a",
+    "actions": [
+      "quote",
+      "fund",
+      "fund",
+      "lose-reply",
+      "recover",
+      "recover"
+    ],
+    "expectedCharges": 1,
+    "expectedAccruals": 1,
+    "expectedDelivery": "same-capability"
+  },
+  "eviction": [
+    {
+      "name": "two suppressions",
+      "actions": [
+        [
+          "suppress",
+          "a"
+        ],
+        [
+          "suppress",
+          "b"
+        ],
+        [
+          "restore",
+          "a"
+        ]
+      ],
+      "remaining": [
+        "b"
+      ]
+    },
+    {
+      "name": "both restored",
+      "actions": [
+        [
+          "suppress",
+          "a"
+        ],
+        [
+          "suppress",
+          "b"
+        ],
+        [
+          "restore",
+          "a"
+        ],
+        [
+          "restore",
+          "b"
+        ]
+      ],
+      "remaining": []
+    },
+    {
+      "name": "replayed suppression",
+      "actions": [
+        [
+          "suppress",
+          "a"
+        ],
+        [
+          "suppress",
+          "a"
+        ]
+      ],
+      "remaining": [
+        "a"
+      ]
+    }
+  ]
+}

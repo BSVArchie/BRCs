@@ -16,6 +16,8 @@
 * [Verifiable Time Allocation](./apps/0168.md)
 * [Locked Content Header (LCH) — Licensed, Micropayment-Enabled Content](./apps/0170.md)
 * [Access Gates for Metanet Rooms](./apps/0190.md)
+* [Application Output Knowledge and Source Adapters](./apps/0192.md)
+* [LCH Acquisition through Private Overlays and Listing Covenants](./apps/0198.md)
 * [Derived Collectibles](./apps/0210.md)
 * [Chat-Native Command Grammar for the Metanet](./apps/0218.md)
 * [NotaryHash — Privacy-Preserving Signed-Hash Notarization with SPV-Verifiable Certificates](./apps/0220.md)
@@ -133,6 +135,7 @@
 * [P1Sat Permission Scheme for Basket `1sat`](./tokens/0165.md)
 * [Consensus-Unique Name Tokens — Identity Binding and Verified Resolution](./tokens/0174.md)
 * [BSV-21 — Validity Proofs](./tokens/0176.md)
+* [Accumulating Right-of-Sale Listings and Purchase Orders](./tokens/0197.md)
 * [Miner-Enforced Resale-Royalty Covenant Tokens (OP_PUSH_TX)](./tokens/0226.md)
 
 ## Overlays
@@ -153,6 +156,11 @@
 * [Race-Settled Collection Markets for Overlay Lookups and Message Boxes](./overlays/0178.md)
 * [Overlay Service Discovery at an Internet Domain](./overlays/0180.md)
 * [A Framework for Strict and Federated Overlays](./overlays/0183.md)
+* [Incremental Lookup and Resumable Live Results](./overlays/0193.md)
+* [Overlay Capabilities and Non-Final Proposal Sessions](./overlays/0194.md)
+* [Private Overlay Data and Recoverable Paid Lookup](./overlays/0195.md)
+* [STEAK with POTATOES](./overlays/0196.md)
+* [SHIP and SLAP Root-Host Output Eviction Coordination](./overlays/0199.md)
 
 ## Payments
 
