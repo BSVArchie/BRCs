@@ -86,6 +86,7 @@ overlays/media/0192-0199/.venv/bin/python -m pip install -r overlays/media/0192-
 npm test --prefix overlays/media/0192-0199
 overlays/media/0192-0199/.venv/bin/python overlays/media/0192-0199/verify-independent.py
 overlays/media/0192-0199/.venv/bin/python overlays/media/0192-0199/verify-traces.py
+overlays/media/0192-0199/.venv/bin/python overlays/media/0192-0199/verify-reconciliation.py
 overlays/media/0192-0199/.venv/bin/python tokens/media/0197/verify-script.py
 ```
 
@@ -98,7 +99,7 @@ funding outputs in the corpus are **public test material**.
 The normative frozen family build can also be reproduced using the pinned Rúnar
 checkout and command in the family guide. Test execution never recompiles or
 regenerates its expected transactions. Generators are separate authoring tools:
-`generate.mjs`, `generate-digests.py` and the family transaction generator. Signature
+`generate.mjs`, `generate-reconciliation.mjs`, `generate-digests.py` and the family transaction generator. Signature
 randomness means regeneration may change corpus bytes; review the new bytes and
 re-run both independent verifiers before committing them. The published family
 program cannot be silently replaced under its existing IRI.
@@ -156,6 +157,43 @@ The commands and expected states are portable fixture contracts. Adapter models
 are test code; a trace named cache, live or reindex does not certify a deployed
 HTTP cache, retained feed or GASP index. Production adapters must be run through
 the corresponding actual delivery paths.
+
+[reconciliation-vectors.json](./reconciliation-vectors.json) and
+[reconciliation-traces.json](./reconciliation-traces.json) close the BRC-192/193
+cross-source acceptance-order contract. The transaction corpus contains 27 frozen
+raw transactions, 40 input Script checks, 113 synthetic headers, and actual Atomic
+BEEF inclusion proofs. SDK and BitcoinX independently derive input edges, execute
+signatures, verify values, parse proof bytes and check selected header ancestry.
+The new independent proof reader supports this corpus's one- and two-leaf paths;
+it is not a general BEEF reader. Inclusion on the competing branch is rejected.
+Fifteen finality cases cover below/equal/above height and time cutoffs, the
+500000000 threshold and zero-locktime/all-final exceptions. Eleven vector
+comparisons cover exact ordered-input, componentwise replacement eligibility.
+
+Two separately written JavaScript/Python reducers run 32 manually specified
+reconciliation scenarios with 52 named state checkpoints. They cover reversed
+verification completion, first-ready versus incomplete evidence, same-batch
+ancestry ties, cross-host successor-before-parent delivery, current-chain override,
+reorg/descendant rollback, non-final replacement and later maturation, finalization,
+disabled non-final priority, and source withdrawal/re-entry/generation fences.
+The Python runner executes every scenario against both memory and SQLite WAL
+journals (64 adapter runs, 104 checkpoints, 42 restart comparisons), plus two
+actual subprocess exits before/after the journal-and-projection commit. Frozen
+expectations are authored separately from either reducer; test execution never
+regenerates expected results. A restart compares the entire saved/rebuilt model
+projection, not only the named assertions.
+
+These are bounded executable specification models. Their compact event vocabulary
+uses fixture transaction names, safe small integer positions and watched outpoints;
+it is not a new network encoding or the full language binding. A verified-event
+marker reveals the independently checked result for the frozen bytes; dependency
+availability and delayed completion are reconciled separately. The displayed
+`current` set means selected outputs with no known selected spend within the
+fixture's evidence, never universal proof of unspentness. Models exercise a
+conservative component barrier, retained contexts and replacement reservations;
+they do not qualify production scheduling, arbitrary dependency graphs, consensus
+validation, authorization or provider I/O. Source membership events start after
+transport/scope validation, whose separate byte/trace tests remain required.
 
 The family corpus contains 42 Script cases (12 accepted and 30 rejected), exact
 raw transactions/preimages, a signed genesis and a full split/merge ancestry DAG.
@@ -238,3 +276,13 @@ Private off-chain values and lookup context predate this packet. The historical
 and [SDK companion](https://github.com/bsv-blockchain/ts-sdk/commit/cb86b4f1767cf4878ac8728e8871acb0b9532908)
 introduced that pattern. BRC-81 is background rather than a replacement for the
 existing interfaces and explicit protected lifecycle defined here.
+
+
+The spend reconciliation profile pins the Genesis replacement section and BSV
+node implementation in [registry.json](./registry.json), including exact source
+SHA-256 values. The Genesis prose's greater-or-equal locktime boundary differs
+from the node's strict comparison; BRC-192 deliberately selects the latter.
+Synthetic fixture branch selection is explicit caller context, not a claim of
+mainnet most-work chain tracking. Current projection uses historical replacement
+reservations plus today's dependency/finality checks; maturation cannot revive a
+replaced version, and a locktime-reversing reorg removes unusable descendants.

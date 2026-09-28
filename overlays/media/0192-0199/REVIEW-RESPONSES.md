@@ -319,3 +319,69 @@ explicitly. Product names and application-specific schemas remain outside the
 core contracts. The next implementation checkpoint must add the actual BRC-100,
 Overlay Express, browser/store, source, cache and replication integrations and
 record their evidence against these already specified decisions.
+
+## Follow-up: deterministic Bitcoin spend reconciliation
+
+This section addresses the [follow-up on revision 4a6f5a8](https://github.com/bsv-blockchain/BRCs/pull/284#issuecomment-5879410779).
+It extends the original finding map; it does not imply that the reviewer has
+approved this revision or that the subsequent implementation checkpoint is complete.
+
+**F1 — Actual spends across sources.** BRC-192 section 10 derives consumption from
+verified transaction inputs, with dependencies, Script/value checks, selected-chain
+context and separate domain lineage. A late parent or catalogue re-entry cannot
+resurrect a consumed output. A domain-invalid successor can still consume a real
+input; BRCs 197/198 explicitly apply this to the funded-copy merge boundary. The
+existing complete lineage corpus remains unchanged. The new cross-host and
+same-batch ancestry traces use actual signed parent/child transactions.
+
+**F2 — Durable first-seen and eligibility.** The local journal supplies trusted
+positions before workers start; raw receipt, complete support, selectable frontier
+and provider sequence are distinct. Source timestamps and worker completion do not
+choose winners. Earlier complete but unfinished evidence blocks its affected
+component, while genuinely incomplete evidence has no earlier eligible priority.
+The total order, historical contexts, inherited replacement reservations and
+current compatible graph are explicit. BRC-192's ports carry reconciled state and
+replacement history; projections cannot reconstruct chronology from presentation
+sorting. Traces reverse worker order, restart, isolate independent components,
+retain a stale prior choice and distinguish incomplete from unfinished evidence.
+
+**F3 — Non-final replacement and finality.** Exact ordered outpoints, unsigned
+pairwise nondecrease and at least one increase are required. Equal, reordered,
+partial, extra-input and incomparable vectors fail; a large scalar elsewhere and
+a locktime-only change do not replace. Finalization, the disabled policy, historical
+replacement before maturation and finality-reversing reorgs are specified and
+exercised. A child cannot attach to a version already replaced while non-final.
+The Genesis and BSV node sources are pinned and hashed in registry.json. Their
+locktime equality discrepancy is explicitly resolved in favor of the node's strict
+comparison, using tip+1 height and selected-chain MTP. Fifteen boundary cases and
+eleven replacement comparisons supplement the stateful traces. BRC-194 proposals
+are not verified spends; BRC-197 remains final-sequence/zero-locktime only and its
+program hash has not changed.
+
+**F4 — Accepted-chain override and reorg.** Inclusion must resolve to the selected
+verified header chain; it supersedes conflicting unconfirmed choices and their
+dependent projections. A proof on the competing branch fails. Ancestor inclusion
+does not defeat a forward spend. Reorg retains raw facts, original order and
+historical rights while rebuilding compatible descendants in the new context.
+SDK and BitcoinX independently verify the new transaction/proof bytes and both
+reducers reproduce contrary inclusion, reorg rollback and locktime-reversing reorg.
+BRCs 195/196/198 prevent provisional selection from becoming release evidence or
+an automatic second charge; BRC-199 keeps serving policy separate.
+
+**F5 — Source membership and durable replay.** BRC-193 section 9 requires retained
+snapshot page/group order, ascending live sequence, atomic groups, staged reset
+and closed-generation fences. Withdrawal affects one source; later re-entry does
+not change the spend graph. Traces cover output/withdraw/re-entry, stale replay,
+two sources, delayed membership verification, multiple snapshot groups sharing W,
+ordered changes within a group and old work after generation replacement. Both
+journal and projection are committed atomically in the SQLite model.
+
+Validation is reproducible with the packet guide commands: 27 frozen raw
+transactions, 40 input Script checks, 113 synthetic headers, actual Atomic BEEF,
+32 reconciliation scenarios and 52 named checkpoints in each reducer. Python adds
+64 memory/SQLite adapter runs, 104 checkpoints, 42 full-state restart comparisons
+and two actual subprocess crash boundaries. Expected observations are manually
+specified separately from the reducers. These bounded models complement the prior
+wire, crypto, covenant and crash suites; they do not certify arbitrary production
+adapters, miner policy, browser transports or wallet integration. The next
+checkpoint must run these contracts through those actual implementation paths.

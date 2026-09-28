@@ -95,6 +95,11 @@
   ],
   "identifiers": [
     {
+      "id": "https://bsv.brc.dev/apps/0192#bitcoin-spend-reconciliation-v1",
+      "definition": "apps/0192.md",
+      "immutable": true
+    },
+    {
       "id": "https://bsv.brc.dev/apps/0192#legacy-lookup-context-json-v1",
       "definition": "apps/0192.md",
       "immutable": true
@@ -187,5 +192,28 @@
       "commit": "b3f08f2cc2349c311904d2c745dc19d65f23e8ca",
       "artifact": "tokens/media/0197/artifact.json"
     }
-  }
+  },
+  "externalProtocolSources": [
+    {
+      "repository": "bitcoin-sv-specs/protocol",
+      "commit": "67d7de07c75d03598fb059d59c61c29ae3dbf87b",
+      "path": "updates/genesis-spec.md",
+      "sha256": "ad7f2356b5b7da67920403803ca310f073cffe4da2c82e4b00bd9cd6e7953c02",
+      "role": "Ordered-input, componentwise non-final replacement relation; finality equality prose is not adopted."
+    },
+    {
+      "repository": "bitcoin-sv/bitcoin-sv",
+      "commit": "879fc8b42168dd0e608dafd51b39c6dabad37d4d",
+      "path": "src/validation.cpp",
+      "sha256": "f6a54858d6ec82e9eac06c52ce6ec9f22eca04008830345b65423d62c9b22f29",
+      "role": "Strict IsFinalTx locktime boundary; contextual block height and preceding-chain median time."
+    },
+    {
+      "repository": "bitcoin-sv/bitcoin-sv",
+      "commit": "879fc8b42168dd0e608dafd51b39c6dabad37d4d",
+      "path": "src/time_locked_mempool.cpp",
+      "sha256": "0fe2d992abd8122e06931c560cc99a41a70b2c8454ab29abdfdf8cd9e611750d",
+      "role": "validateUpdateNL ordered input and pairwise sequence checks; rate/resource limits remain local policy."
+    }
+  ]
 }
