@@ -188,6 +188,7 @@
 * [Single-Use Signed Proofs for Request Authentication](./peer-to-peer/0138.md)
 * [Fountain-Coded Air-Gap Transport for Arbitrary Payloads](./peer-to-peer/0141.md)
 * [Universal Handle Addressing and Resolution for the Metanet](./peer-to-peer/0169.md)
+* [BRC-52 Encrypted Certificate Profile for Verifiable Credential Interoperability](./peer-to-peer/0203.md)
 * [Animated-QR Air-Gap Transport for Arbitrary Payloads (TKQR1)](./peer-to-peer/0225.md)
 * [Keyed Content and Conditional Key Release](./peer-to-peer/0369.md)
 
