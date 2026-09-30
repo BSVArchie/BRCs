@@ -250,6 +250,7 @@ BRC | Standard
 183  | [A Framework for Strict and Federated Overlays](./overlays/0183.md)
 184  | [Optional Metadata Registries and Their Stewardship](./wallet/0184.md)
 190  | [Access Gates for Metanet Rooms](./apps/0190.md)
+202  | [Identity-Key Decentralized Identifiers](./peer-to-peer/0202.md)
 210  | [Derived Collectibles](./apps/0210.md)
 218  | [Chat-Native Command Grammar for the Metanet](./apps/0218.md)
 219  | [Wallet Permission Prompt Liveness Contract](./wallet/0219.md)
