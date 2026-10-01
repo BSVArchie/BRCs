@@ -252,6 +252,7 @@ BRC | Standard
 186  | [Thoughts on UTXO-Driven Applications and Private Overlays](./opinions/0186.md)
 187  | [Thoughts on Declarative Stewardship](./opinions/0187.md)
 188  | [User Management Protocol (UMP)](./wallet/0188.md)
+189  | [Identity, Certificates, Discovery, and Personal Trust in Applications](./wallet/0189.md)
 190  | [Access Gates for Metanet Rooms](./apps/0190.md)
 210  | [Derived Collectibles](./apps/0210.md)
 218  | [Chat-Native Command Grammar for the Metanet](./apps/0218.md)

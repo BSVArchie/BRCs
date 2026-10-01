@@ -57,6 +57,7 @@
 * [Wallet-Enforced Autonomous-Agent Spend Policy](./wallet/0181.md)
 * [Optional Metadata Registries and Their Stewardship](./wallet/0184.md)
 * [User Management Protocol (UMP)](./wallet/0188.md)
+* [Identity, Certificates, Discovery, and Personal Trust in Applications](./wallet/0189.md)
 * [Wallet Permission Prompt Liveness Contract](./wallet/0219.md)
 * [Wallet-Native Elliptic Curve Point Multiplication as a BRC-98 Module](./wallet/0229.md)
 
