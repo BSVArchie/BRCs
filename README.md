@@ -265,6 +265,7 @@ BRC | Standard
 199  | [SHIP and SLAP Root-Host Output Eviction Coordination](./overlays/0199.md)
 200  | [Operating Practices for Identity Certifiers](./peer-to-peer/0200.md)
 201  | [Social Account Certificate Types and Issuance Profile](./peer-to-peer/0201.md)
+202  | [Identity-Key Decentralized Identifiers](./peer-to-peer/0202.md)
 210  | [Derived Collectibles](./apps/0210.md)
 218  | [Chat-Native Command Grammar for the Metanet](./apps/0218.md)
 219  | [Wallet Permission Prompt Liveness Contract](./wallet/0219.md)
