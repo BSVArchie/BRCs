@@ -250,6 +250,7 @@ BRC | Standard
 183  | [A Framework for Strict and Federated Overlays](./overlays/0183.md)
 184  | [Optional Metadata Registries and Their Stewardship](./wallet/0184.md)
 186  | [Thoughts on UTXO-Driven Applications and Private Overlays](./opinions/0186.md)
+187  | [Thoughts on Declarative Stewardship](./opinions/0187.md)
 188  | [User Management Protocol (UMP)](./wallet/0188.md)
 190  | [Access Gates for Metanet Rooms](./apps/0190.md)
 210  | [Derived Collectibles](./apps/0210.md)

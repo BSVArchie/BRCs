@@ -232,6 +232,7 @@
 * [BRC-100 Risk Assessment and Best Integration Practices](./opinions/0151.md)
 * [Best Practices for Regulated Tokens in a BRC-100 Ecosystem](./opinions/0152.md)
 * [Thoughts on UTXO-Driven Applications and Private Overlays](./opinions/0186.md)
+* [Thoughts on Declarative Stewardship](./opinions/0187.md)
 
 ## State Machines
 
