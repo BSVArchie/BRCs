@@ -199,6 +199,7 @@
 * [Fountain-Coded Air-Gap Transport for Arbitrary Payloads](./peer-to-peer/0141.md)
 * [Universal Handle Addressing and Resolution for the Metanet](./peer-to-peer/0169.md)
 * [Operating Practices for Identity Certifiers](./peer-to-peer/0200.md)
+* [Social Account Certificate Types and Issuance Profile](./peer-to-peer/0201.md)
 * [Animated-QR Air-Gap Transport for Arbitrary Payloads (TKQR1)](./peer-to-peer/0225.md)
 * [Binary Encoding for the Message Relay Interface](./peer-to-peer/0231.md)
 * [Keyed Content and Conditional Key Release](./peer-to-peer/0369.md)
