@@ -263,6 +263,7 @@ BRC | Standard
 197  | [Accumulating Right-of-Sale Listings and Purchase Orders](./tokens/0197.md)
 198  | [LCH Acquisition through Private Overlays and Listing Covenants](./apps/0198.md)
 199  | [SHIP and SLAP Root-Host Output Eviction Coordination](./overlays/0199.md)
+200  | [Operating Practices for Identity Certifiers](./peer-to-peer/0200.md)
 210  | [Derived Collectibles](./apps/0210.md)
 218  | [Chat-Native Command Grammar for the Metanet](./apps/0218.md)
 219  | [Wallet Permission Prompt Liveness Contract](./wallet/0219.md)
