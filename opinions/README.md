@@ -18,3 +18,4 @@ BRC  | Standard
 152  | [Best Practices for Regulated Tokens in a BRC-100 Ecosystem](./0152.md)
 186  | [Thoughts on UTXO-Driven Applications and Private Overlays](./0186.md)
 187  | [Thoughts on Declarative Stewardship](./0187.md)
+191  | [Thoughts on Identity, Privacy and Recovery on the Metanet](./0191.md)
