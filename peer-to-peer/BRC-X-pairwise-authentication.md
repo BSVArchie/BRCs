@@ -70,18 +70,26 @@ The pairwise key is the BRC-42 child of the user's master key with:
 
 | Input | Value |
 |---|---|
-| Counterparty | the site key |
-| Invoice number | `2-admin pairwise-1` |
+| Counterparty | `self` |
+| Invoice number | `2-admin pairwise-<site key> <version>` |
 
 - The invoice follows [BRC-43](../key-derivation/0043.md) (Security Levels, Protocol IDs, Key IDs and
-  Counterparties): security level `2`, protocol ID `admin pairwise`, key ID `1`.
+  Counterparties): security level `2`, protocol ID `admin pairwise`, and a key ID made of the site key
+  (33-byte compressed, lowercase hex), one space, and a version number in decimal. Version `1` gives
+  `2-admin pairwise-<site key> 1`.
+- **The counterparty is `self`, not the site key.** BRC-42 is symmetric: a key derived from the user's
+  private key and the site's public key can also be computed from the site's private key and the
+  user's public key. With the site key as counterparty, a site could take any identity key it knows,
+  compute what that user's pairwise key would be, and compare it with the key it was shown, unmasking
+  the user without any help from another site. With `self`, the shared secret comes from the user's
+  private key alone. The site key in the key ID still makes the key different at every site.
 - The protocol ID starts with `admin`, which [BRC-44](../key-derivation/0044.md) (Admin-reserved and
   Prohibited Key Derivation Protocols) reserves for the wallet's own use. A wallet MUST refuse any
   application request that names a protocol ID beginning with `admin`, at every security level. Only
   the wallet derives the pairwise key, and only through the `pairwise` flag in § 2. Without this rule,
   an application could request the pairwise key for any other site and link the user.
-- The key ID is a version. A wallet MAY offer a user a fresh, unconnected account at the same site by
-  using key ID `2`, `3` and so on. This document uses `1` throughout.
+- The version gives a user more than one account at a site. A wallet MAY offer a fresh, unconnected
+  account at the same site by using version `2`, `3` and so on. This document uses `1` throughout.
 - Wallets MUST NOT store the pairwise key. It is re-derived on every use.
 
 ### 2. The `pairwise` flag
@@ -291,7 +299,7 @@ When a wallet signs an input that spends an output received under a pairwise key
 signing key in two steps:
 
 ```
-pairwise key  = BRC-42 child of the master key,  counterparty = site key, invoice 2-admin pairwise-1
+pairwise key  = BRC-42 child of the master key,  counterparty = self,   invoice 2-admin pairwise-<site key> 1
 signing key   = BRC-42 child of the pairwise key, counterparty = sender,  invoice from the remittance
 ```
 
@@ -320,7 +328,7 @@ sequenceDiagram
 
 - **Separate from payment keys.** Payments go to child keys derived from the pairwise key. The
   pairwise key itself never holds funds. It appears only as the sender's key in a remittance.
-- **Replaceable.** The key ID in § 1 is a version. A new version is a new, unconnected account.
+- **Replaceable.** The version in § 1's key ID gives a new, unconnected account.
 
 ### 6. Certificates
 
@@ -341,6 +349,14 @@ sequenceDiagram
 ### 7. Relationship to other BRCs
 
 - **BRC-151** recommends an application-specific authentication key. This document specifies one.
+- **Prior art outside the registry.**
+  [SLIP-0013](https://github.com/satoshilabs/slips/blob/master/slip-0013.md) (Authentication using
+  deterministic hierarchy, Pavol Rusnak, SatoshiLabs, 2015) and
+  [LUD-05](https://github.com/lnurl/luds/blob/luds/05.md) (BIP32-based seed generation for auth
+  protocol, LNURL-auth) derive a
+  per-site login key from a secret only the user holds plus the site's identifier, with an index or
+  version for more keys per site. This document follows the same principle using BRC-42 and BRC-43,
+  with the site's public key as the identifier.
 - **[BRC-228](../payments/0228.md) (Unlinkable Payments under the Identity Paradigm)** uses a fresh,
   random key for every payment, and forbids deriving it from any reusable wallet secret. Pairwise keys
   are deterministic and stable per site, on purpose, so that accounts survive. The two address
@@ -363,12 +379,16 @@ sequenceDiagram
   pairwise key. Section 2.1 tells wallets to warn when they see it.
 - **The calling domain must come from the browser, not the page.** A wallet that accepts a domain
   supplied by the page lets one site claim to be another and read its pairwise key.
+- **The pairwise key must not be computable by the site.** Section 1 derives it with counterparty
+  `self` for this reason. A derivation that uses the site key as counterparty lets the site test any
+  known identity key against a pairwise key and unmask the user.
 - **The admin reservation is load-bearing.** A wallet that lets applications derive `admin` protocols
   gives any page every pairwise key. Section 1 makes refusal a MUST.
 
 ## 9. Privacy considerations
 
-*Unlinkable* here means: two sites can't use the pairwise key to tell they share a user. It does not
+*Unlinkable* here means: two sites can't use the pairwise key to tell they share a user, and one site
+can't use it to connect a user's pairwise account with a public account the same user holds there. It does not
 hide the user from the site they are logged in to, from a certifier that issued them a credential, or
 from analysis of the transaction graph, where inputs and change still belong to the same wallet.
 
@@ -385,32 +405,38 @@ them for funds. All hex is lowercase; public keys are compressed.
 | User identity key | `03defdea4cdb677750a420fee807eacf21eb9898ae79b9768766e4faa04a2d4a34` |
 | Site private key | `0000000000000000000000000000000000000000000000000000000000000022` |
 | Site key | `031be68a5a028f2601d0e80d468c344ba331d611b96c358b6032e8b4da0547fc11` |
-| Invoice | `2-admin pairwise-1` |
-| Pairwise private key | `e5dbc822d2bf152823d41029cf6e9ea0ac791779f2221686f6c2350a760a0c28` |
-| Pairwise key | `031ea190291b45a263ece6a3891aac11e57e636732200290188352ff05dac73c8d` |
-| Pairwise key at a second site (site key `0270e6b44a2ac6083ab673bacb5cb7ca554b795b416e702c1c980bb7b87c78b8e9`) | `03af8f11ad119b079d7d21ad34334384f40c9e064a21758564dc5b1bd7f5247f00` |
+| Counterparty | `self` |
+| Invoice | `2-admin pairwise-031be68a5a028f2601d0e80d468c344ba331d611b96c358b6032e8b4da0547fc11 1` |
+| Pairwise private key | `12edeafb17aab433a6e958c014ba08974eb9ddba0540b9f8c8d44cb36888efff` |
+| Pairwise key | `037be3648196bec37bb1eaf3af0d8b654d418f0230e6012ca25a315787afc33d46` |
+| Pairwise key at a second site (site key `0270e6b44a2ac6083ab673bacb5cb7ca554b795b416e702c1c980bb7b87c78b8e9`) | `037bd821cb8312292ecfa1bc08670d4202f1893dd69465146e6e50d54dbd232358` |
 
 **Payments (§ 5)**, protocol `[2, "3241645161d8"]`, prefix `cHJlZml4`, suffix `c3VmZml4`
 
 | | Value |
 |---|---|
-| User pays site: output key | `02da1907646f4eb20d18dd5b1f6f720e97e44997a6c10e208ca83750723b623f92` |
-| Site pays user: output key | `035fddab9a4d1b92fca835bb0c5d78de5075c9d251a591f2cee02e0c0276e3af9b` |
-| Site pays user: user's two-step spending private key | `573d17125841973be640b3a270b58642f9bd646a944566d5173972cd0688cf8e` |
+| User pays site: output key | `036a823a3bdd9d9ef02bdbcd3becdec4862f58d3caded84171105a7043d451cdab` |
+| Site pays user: output key | `02b03eb26a51d47abdbf683ec7678b64b9c47fb4de554255d20ea4df992488f7db` |
+| Site pays user: user's two-step spending private key | `c1198013b3d38739d26908f2fe2a3805a371cd658c5ef82724fa9573af8ff2b5` |
 
 **Payment between two users of the site (§ 5.4)**
 
 | | Value |
 |---|---|
 | Receiver master private key | `0000000000000000000000000000000000000000000000000000000000000033` |
-| Receiver pairwise key | `03497401cf8ae5121c7d2b3f57d727e893db478ae5f502e2bd70e2a0719dc761a5` |
-| Output key (sender = the user above, from its pairwise key) | `03f8694ddb1e4863f65a595e3aaf512ebdb8a40c1872559641e32e6f29710d0ca2` |
-| Receiver's two-step spending private key | `0fca3c442eb3eac9b4d631eb58e04bee5d9929b873773919464dc213846ffd51` |
+| Receiver pairwise key | `033f4d8d7ad66fc08440309a720aee9bd17b6709faeac3dfe033d1d077e3087053` |
+| Output key (sender = the user above, from its pairwise key) | `032c0befee26bf0b89610cd212d818f601688755b5f6ed7b1d439f7d133117b793` |
+| Receiver's two-step spending private key | `6b6b85a998c2a0df423acdbb4d27479e88c10daf375008964f613dbf7fc8fee1` |
 
-**Checks an implementation should reproduce.** A login signature made from the pairwise key verifies
-at the site, and the user verifies the site's signature from the pairwise key. Each fails when the
-master key is used instead. A payment derived from the master key is not the key the receiver looks
-for, and a one-step spending derivation does not match the output.
+**Checks an implementation should reproduce.**
+- The site cannot compute the pairwise key from the user's identity key: deriving with protocol
+  `admin pairwise`, the same key ID and the identity key as counterparty gives a different key.
+- A login signature made from the pairwise key verifies at the site, and the user verifies the site's
+  signature from the pairwise key.
+- An HMAC made from the pairwise key verifies at the site, and the user decrypts from the pairwise key
+  what the site encrypted to it.
+- Each of these fails when the master key is used instead. A payment derived from the master key is
+  not the key the receiver looks for, and a one-step spending derivation does not match the output.
 
 ## 11. Open questions
 
@@ -427,7 +453,8 @@ None yet.
 ## 13. Acknowledgements
 
 Thanks to Bridget Doran for pointing out that payments received under a pairwise key could not be
-spent without further wallet support.
+spent without further wallet support, and that deriving the pairwise key with the site key as
+counterparty would let a site unmask users from known identity keys.
 
 ## References
 
@@ -445,4 +472,6 @@ spent without further wallet support.
 - [BRC-191](../opinions/0191.md): Thoughts on Identity, Privacy and Recovery on the Metanet
 - [BRC-228](../payments/0228.md): Unlinkable Payments under the Identity Paradigm
 - OpenID Connect Core 1.0, § 8 Subject Identifier Types
+- SLIP-0013: Authentication using deterministic hierarchy, https://github.com/satoshilabs/slips/blob/master/slip-0013.md
+- LUD-05: BIP32-based seed generation for auth protocol, https://github.com/lnurl/luds/blob/luds/05.md
 - RFC 2119, Key words for use in RFCs to Indicate Requirement Levels
