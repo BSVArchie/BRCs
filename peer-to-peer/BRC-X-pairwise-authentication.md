@@ -124,6 +124,10 @@ domain to it afterwards.
 - `pairwise: true` together with `privileged: true` MUST be rejected.
 - A call with `pairwise: true` discloses no identity key, and wallets SHOULD NOT show an identity-key
   prompt for it. Wallets MAY apply their usual protocol permissions.
+- A wallet without this extension rejects the first call, `getPublicKey({ pairwise: true, counterparty })`,
+  because BRC-100 requires `protocolID` and `keyID` for a derived key. Applications SHOULD treat that
+  rejection as "not supported" and offer the public login. A wallet MUST NOT answer a `pairwise` call
+  with the identity key.
 
 ### 3. Account creation and login
 
