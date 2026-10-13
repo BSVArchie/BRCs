@@ -61,6 +61,7 @@
 * [User Management Protocol (UMP)](./wallet/0188.md)
 * [Identity, Certificates, Discovery, and Personal Trust in Applications](./wallet/0189.md)
 * [Agent Allowances](./wallet/0204.md)
+* [Extensible Wallet Version Strings and Account Labels](./wallet/0205.md)
 * [Wallet Permission Prompt Liveness Contract](./wallet/0219.md)
 * [Wallet-Native Elliptic Curve Point Multiplication as a BRC-98 Module](./wallet/0229.md)
 
@@ -102,6 +103,7 @@
 * [Multicast Shard Domain Partitioning and the BEEF Object Plane](./transactions/0148.md)
 * [Multicast BEEF Object Frame Format](./transactions/0149.md)
 * [Outpoint BEEF](./transactions/0158.md)
+* [Subject BEEF](./transactions/0233.md)
 
 ## Scripts
 
