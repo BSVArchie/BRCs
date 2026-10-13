@@ -268,6 +268,7 @@ BRC | Standard
 202  | [Identity-Key Decentralized Identifiers](./peer-to-peer/0202.md)
 203  | [BRC-52 Encrypted Certificate Profile for Verifiable Credential Interoperability](./peer-to-peer/0203.md)
 204  | [Agent Allowances](./wallet/0204.md)
+205  | [Extensible Wallet Version Strings and Account Labels](./wallet/0205.md)
 208  | [Vault Sub-Accounts](./wallet/0208.md)
 210  | [Derived Collectibles](./apps/0210.md)
 218  | [Chat-Native Command Grammar for the Metanet](./apps/0218.md)
@@ -280,6 +281,7 @@ BRC | Standard
 228  | [Unlinkable Payments under the Identity Paradigm](./payments/0228.md)
 229  | [Wallet-Native Elliptic Curve Point Multiplication as a BRC-98 Module](./wallet/0229.md)
 231  | [Binary Encoding for the Message Relay Interface](./peer-to-peer/0231.md)
+233  | [Subject BEEF](./transactions/0233.md)
 369  | [Keyed Content and Conditional Key Release](./peer-to-peer/0369.md)
 
 ## License
