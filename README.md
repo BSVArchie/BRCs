@@ -249,6 +249,7 @@ BRC | Standard
 182  | [Pairwise Authentication](./peer-to-peer/0182.md)
 183  | [A Framework for Strict and Federated Overlays](./overlays/0183.md)
 184  | [Optional Metadata Registries and Their Stewardship](./wallet/0184.md)
+185  | [Wallet Substrate Discovery, Selection, and Encrypted Mobile Connections](./wallet/0185.md)
 186  | [Thoughts on UTXO-Driven Applications and Private Overlays](./opinions/0186.md)
 187  | [Thoughts on Declarative Stewardship](./opinions/0187.md)
 188  | [User Management Protocol (UMP)](./wallet/0188.md)

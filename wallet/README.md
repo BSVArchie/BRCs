@@ -45,6 +45,7 @@ BRC | Standard
 179  | [Signed Capability Manifest for Wallet and Tool-Server Method Exposure](./0179.md)
 181  | [Wallet-Enforced Autonomous-Agent Spend Policy](./0181.md)
 184  | [Optional Metadata Registries and Their Stewardship](./0184.md)
+185  | [Wallet Substrate Discovery, Selection, and Encrypted Mobile Connections](./0185.md)
 188  | [User Management Protocol (UMP)](./0188.md)
 189  | [Identity, Certificates, Discovery, and Personal Trust in Applications](./0189.md)
 204  | [Agent Allowances](./0204.md)

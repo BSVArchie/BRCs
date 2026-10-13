@@ -58,6 +58,7 @@
 * [Signed Capability Manifest for Wallet and Tool-Server Method Exposure](./wallet/0179.md)
 * [Wallet-Enforced Autonomous-Agent Spend Policy](./wallet/0181.md)
 * [Optional Metadata Registries and Their Stewardship](./wallet/0184.md)
+* [Wallet Substrate Discovery, Selection, and Encrypted Mobile Connections](./wallet/0185.md)
 * [User Management Protocol (UMP)](./wallet/0188.md)
 * [Identity, Certificates, Discovery, and Personal Trust in Applications](./wallet/0189.md)
 * [Agent Allowances](./wallet/0204.md)
