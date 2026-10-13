@@ -10,6 +10,8 @@ BRC   | Standard
 168   | [Verifiable Time Allocation](./0168.md)
 170   | [Locked Content Header (LCH) — Licensed, Micropayment-Enabled Content](./0170.md)
 190   | [Access Gates for Metanet Rooms](./0190.md)
+192  | [Application Output Knowledge and Source Adapters](./0192.md)
+198  | [LCH Acquisition through Private Overlays and Listing Covenants](./0198.md)
 210   | [Derived Collectibles](./0210.md)
 218   | [Chat-Native Command Grammar for the Metanet](./0218.md)
 220   | [NotaryHash — Privacy-Preserving Signed-Hash Notarization with SPV-Verifiable Certificates](./0220.md)
