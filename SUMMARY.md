@@ -62,6 +62,7 @@
 * [Identity, Certificates, Discovery, and Personal Trust in Applications](./wallet/0189.md)
 * [Agent Allowances](./wallet/0204.md)
 * [Extensible Wallet Version Strings and Account Labels](./wallet/0205.md)
+* [Vault Sub-Accounts](./wallet/0208.md)
 * [Wallet Permission Prompt Liveness Contract](./wallet/0219.md)
 * [Wallet-Native Elliptic Curve Point Multiplication as a BRC-98 Module](./wallet/0229.md)
 
